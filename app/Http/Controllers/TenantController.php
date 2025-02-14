@@ -13,7 +13,9 @@ class TenantController extends Controller
      */
     public function index()
     {
-        return inertia('Tenant/Index');
+        return inertia('Tenant/Index', [
+            'tenants' => Tenant::with('domains')->get(),
+        ]);
     }
 
     /**
