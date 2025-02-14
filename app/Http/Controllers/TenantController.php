@@ -13,7 +13,7 @@ class TenantController extends Controller
      */
     public function index()
     {
-        return inertia('Tenant/Index', [
+        return inertia('Admin/Index', [
             'tenants' => Tenant::with('domains')->get(),
         ]);
     }
@@ -23,7 +23,7 @@ class TenantController extends Controller
      */
     public function create()
     {
-        return inertia('Tenant/Create');
+        return inertia('Admin/Create');
     }
 
     /**
