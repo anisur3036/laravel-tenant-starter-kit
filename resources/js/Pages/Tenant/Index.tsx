@@ -1,4 +1,4 @@
-import PrimaryButton from "@/Components/PrimaryButton";
+import PrimaryButton from "@/components/PrimaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 

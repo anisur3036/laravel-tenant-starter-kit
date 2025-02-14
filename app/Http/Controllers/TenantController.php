@@ -36,6 +36,8 @@ class TenantController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $validatedData['password'] = bcrypt($validatedData['password']);
+
         $tenant = Tenant::create($validatedData);
 
         $tenant->domains()->create([
