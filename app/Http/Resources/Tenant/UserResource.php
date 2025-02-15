@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Tenant;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\RoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -18,7 +19,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'role' => 'User',
+            'roles' => new RoleResource($this->whenLoaded('roles')),
             'created_at' => $this->created_at->format('d/m/Y'),
         ];
     }

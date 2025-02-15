@@ -20,15 +20,16 @@ interface Props {
       email: string;
       domain_name: string;
       password: string;
-      role: {
+      roles: {
         id: number;
-        domain: string;
+        name: string;
       }[];
     }[];
   };
 }
 
 export default function User({ users }: Props) {
+  console.log(users);
   return (
     <TenantAuthenticatedLayout
       header={
@@ -62,7 +63,11 @@ export default function User({ users }: Props) {
                     <TableRow key={user.id}>
                       <TableCell className="font-medium">{user.name}</TableCell>
                       <TableCell>{user.email}</TableCell>
-                      <TableCell>Role</TableCell>
+                      <TableCell>
+                        {user.roles.map((item) => (
+                          <span key={item.id}>{item.name}</span>
+                        ))}
+                      </TableCell>
                       <TableCell className="text-right">Edit</TableCell>
                     </TableRow>
                   ))}

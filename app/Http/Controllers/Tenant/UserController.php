@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
         return inertia('Tenant/User/Index', [
-            'users' => UserResource::collection(User::paginate()),
+            'users' => UserResource::collection(User::with('roles')->paginate()),
         ]);
     }
 
