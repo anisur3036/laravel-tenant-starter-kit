@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 interface Props {
   permissions: {
+    id: number;
     name: string;
   }[];
 }
