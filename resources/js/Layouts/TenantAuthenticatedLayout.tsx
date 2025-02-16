@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, ReactNode, useEffect, useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import {
   User2,
@@ -41,9 +41,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import ApplicationLogo from "@/Components/ApplicationLogo";
+import ApplicationLogo from "@/components/ApplicationLogo";
 
-export default function TenantAuthenticated({ children }: PropsWithChildren) {
+export default function TenantAuthenticated({
+  header,
+  children,
+}: PropsWithChildren<{ header?: ReactNode }>) {
   const [isSidebarActive, setIsSidebarActive] = useState(false);
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "system",
@@ -351,9 +354,14 @@ export default function TenantAuthenticated({ children }: PropsWithChildren) {
             </DropdownMenu>
           </div>
         </header>
-        <main className="min-h-[calc(100vh)] pt-24 pb-4 px-6 max-w-7xl mx-auto">
-          {children}
-        </main>
+        {header && (
+          <header className="pt-12 shadow bg-sidebar-accent">
+            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+              {header}
+            </div>
+          </header>
+        )}
+        <main className=" pb-4 px-6 max-w-7xl mx-auto">{children}</main>
       </div>
     </>
   );
