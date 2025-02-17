@@ -8,7 +8,7 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-export default function Dashboard() {
+export default function Create() {
   const { data, setData, post, processing, errors, reset } = useForm({
     name: "",
   });
@@ -33,7 +33,11 @@ export default function Dashboard() {
           <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
             Create permission
           </h2>
-          <Link className={buttonVariants()} href={route("permissions.index")}>
+          <Link
+            prefetch={true}
+            className={buttonVariants()}
+            href={route("permissions.index")}
+          >
             back
           </Link>
         </div>

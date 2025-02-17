@@ -21,7 +21,7 @@ interface Props {
   }[];
 }
 
-export default function Create({ role, hasPermissions, permissions }: Props) {
+export default function Edit({ role, hasPermissions, permissions }: Props) {
   const { data, setData, put, processing, errors, reset } = useForm({
     name: role.name || "",
     permissions: hasPermissions,
@@ -59,15 +59,19 @@ export default function Create({ role, hasPermissions, permissions }: Props) {
       header={
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            Create role
+            Update role
           </h2>
-          <Link className={buttonVariants()} href={route("roles.index")}>
+          <Link
+            prefetch={true}
+            className={buttonVariants()}
+            href={route("roles.index")}
+          >
             back
           </Link>
         </div>
       }
     >
-      <Head title="Create role" />
+      <Head title="Update role" />
       <ToastContainer />
 
       <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">

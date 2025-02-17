@@ -52,13 +52,17 @@ export default function Create({ roles }: Props) {
           <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
             Create user
           </h2>
-          <Link className={buttonVariants()} href={route("users.index")}>
+          <Link
+            prefetch={true}
+            className={buttonVariants()}
+            href={route("users.index")}
+          >
             back
           </Link>
         </div>
       }
     >
-      <Head title="Create role" />
+      <Head title="Create user" />
       <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
         <form onSubmit={submit} className="max-w-xl space-y-4">
           <div>

@@ -25,7 +25,7 @@ interface Props {
   };
 }
 
-export default function Dashboard({ roles }: Props) {
+export default function Index({ roles }: Props) {
   const { flash } = usePage<PageProps>().props;
 
   useEffect(() => {
@@ -40,13 +40,17 @@ export default function Dashboard({ roles }: Props) {
           <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
             Roles
           </h2>
-          <Link className={buttonVariants()} href={route("roles.create")}>
+          <Link
+            prefetch={true}
+            className={buttonVariants()}
+            href={route("roles.create")}
+          >
             Create role
           </Link>
         </div>
       }
     >
-      <Head title="Permission" />
+      <Head title="Roles" />
       <ToastContainer />
 
       <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">

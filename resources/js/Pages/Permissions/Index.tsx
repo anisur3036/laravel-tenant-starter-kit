@@ -38,9 +38,13 @@ export default function Index({ permissions }: Props) {
       header={
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            Dashboard
+            Permissions
           </h2>
-          <Link className={buttonVariants()} href={route("permissions.create")}>
+          <Link
+            prefetch={true}
+            className={buttonVariants()}
+            href={route("permissions.create")}
+          >
             Create permission
           </Link>
         </div>
@@ -64,7 +68,10 @@ export default function Index({ permissions }: Props) {
                 <TableCell className="font-medium">{permission.name}</TableCell>
                 <TableCell>{permission.created_at}</TableCell>
                 <TableCell className="flex items-center justify-end gap-4">
-                  <Link href={route("permissions.edit", permission.id)}>
+                  <Link
+                    prefetch={true}
+                    href={route("permissions.edit", permission.id)}
+                  >
                     <Pencil size={14} />
                   </Link>
                   <DeletePermission permission={permission} />

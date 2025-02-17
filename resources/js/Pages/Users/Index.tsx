@@ -26,7 +26,7 @@ interface Props {
   };
 }
 
-export default function Dashboard({ users }: Props) {
+export default function Index({ users }: Props) {
   const { flash } = usePage<PageProps>().props;
 
   useEffect(() => {
@@ -41,13 +41,17 @@ export default function Dashboard({ users }: Props) {
           <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
             Users
           </h2>
-          <Link className={buttonVariants()} href={route("users.create")}>
+          <Link
+            prefetch={true}
+            className={buttonVariants()}
+            href={route("users.create")}
+          >
             Create user
           </Link>
         </div>
       }
     >
-      <Head title="Permission" />
+      <Head title="Users" />
       <ToastContainer />
 
       <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
@@ -69,7 +73,7 @@ export default function Dashboard({ users }: Props) {
                 <TableCell>{user.roles}</TableCell>
                 <TableCell>{user.created_at}</TableCell>
                 <TableCell className="flex items-center justify-end gap-4">
-                  <Link href={route("users.edit", user.id)}>
+                  <Link prefetch={true} href={route("users.edit", user.id)}>
                     <Pencil size={14} />
                   </Link>
                   <DeleteUser user={user} />

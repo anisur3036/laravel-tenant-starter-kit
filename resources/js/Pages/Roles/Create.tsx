@@ -28,8 +28,6 @@ export default function Create({ permissions, roles }: Props) {
     permissions: [] as string[],
   });
 
-  console.log(roles);
-
   const handleSelectValue = (value: string) => {
     setData("name", value);
   };
@@ -65,7 +63,11 @@ export default function Create({ permissions, roles }: Props) {
           <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
             Create role
           </h2>
-          <Link className={buttonVariants()} href={route("roles.index")}>
+          <Link
+            prefetch={true}
+            className={buttonVariants()}
+            href={route("roles.index")}
+          >
             back
           </Link>
         </div>

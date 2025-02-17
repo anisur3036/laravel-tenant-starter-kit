@@ -45,9 +45,10 @@ import { Input } from "@/components/ui/input";
 import ApplicationLogo from "@/components/ApplicationLogo";
 
 export default function Authenticated({
+  headerTitle,
   header,
   children,
-}: PropsWithChildren<{ header?: ReactNode }>) {
+}: PropsWithChildren<{ header?: ReactNode; headerTitle?: string }>) {
   const [isSidebarActive, setIsSidebarActive] = useState(false);
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "system",
@@ -244,7 +245,7 @@ export default function Authenticated({
                 />
               </svg>
             </button>
-            <span className="pl-2.5">Welcome</span>
+            {headerTitle && <span className="pl-2.5">{headerTitle}</span>}
           </div>
           <div className="relative flex items-center sm:w-[400px]">
             <Search className="size-4 absolute left-[8px] text-gray-400 dark:text-slate-500" />
