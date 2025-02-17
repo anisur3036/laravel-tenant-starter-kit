@@ -20,6 +20,7 @@ interface Props {
       id: number;
       name: string;
       email: string;
+      roles: string;
       created_at: string;
     }[];
   };
@@ -55,20 +56,23 @@ export default function Dashboard({ users }: Props) {
             <TableRow>
               <TableHead className="w-[200px]">Name</TableHead>
               <TableHead>Email</TableHead>
+              <TableHead>Roles</TableHead>
               <TableHead>Created at</TableHead>
               <TableHead className="text-right">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {users.data.map((user) => (
-              <TableRow className="" key={user.id}>
+              <TableRow key={user.id}>
                 <TableCell className="font-medium">{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
+                <TableCell>{user.roles}</TableCell>
                 <TableCell>{user.created_at}</TableCell>
                 <TableCell className="flex items-center justify-end gap-4">
                   <Link href={route("users.edit", user.id)}>
                     <Pencil size={14} />
                   </Link>
+                  <DeleteUser user={user} />
                 </TableCell>
               </TableRow>
             ))}
@@ -76,5 +80,22 @@ export default function Dashboard({ users }: Props) {
         </Table>
       </div>
     </AuthenticatedLayout>
+  );
+}
+
+interface UserProps {
+  user: { id: number; name: string };
+}
+
+function DeleteUser({ user }: UserProps) {
+  const handleDelete = () => {
+    if (confirm("Are you sure you want to delete this user?")) {
+      router.delete(route("users.destroy", user.id));
+    }
+  };
+  return (
+    <Button variant="link" onClick={handleDelete}>
+      <Trash2 size={14} className="text-red-500" />
+    </Button>
   );
 }

@@ -102,13 +102,13 @@ export default function Authenticated({
       ],
     },
     {
-      title: "Roles / Permissions",
+      title: "Admin areas",
       icon: <ChevronsRight />,
       menus: [
         {
           id: 1,
-          name: "Permissions",
-          url: "/permissions",
+          name: "Users",
+          url: "/users",
           // menuRoute: "users.index",
           icon: <Users2 size={14} className="text-foreground" />,
         },
@@ -116,6 +116,13 @@ export default function Authenticated({
           id: 2,
           name: "Roles",
           url: "/roles",
+          // menuRoute: "users.index",
+          icon: <Users2 size={14} className="text-foreground" />,
+        },
+        {
+          id: 3,
+          name: "Permissions",
+          url: "/permissions",
           // menuRoute: "users.index",
           icon: <Users2 size={14} className="text-foreground" />,
         },

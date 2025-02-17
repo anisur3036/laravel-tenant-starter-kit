@@ -40,7 +40,7 @@ export default function Create({ roles }: Props) {
 
     post(route("users.store"), {
       onSuccess: () => {
-        reset("password");
+        reset("password", "password_confirmation");
       },
     });
   };

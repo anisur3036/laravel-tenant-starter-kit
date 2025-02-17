@@ -63,6 +63,7 @@ class UserController extends Controller implements HasMiddleware
 
         $user->syncRoles($request->roles);
 
+        return redirect(route('users.index', absolute: true))->with('success', 'User successfully created!');
     }
 
     /**
@@ -87,7 +88,6 @@ class UserController extends Controller implements HasMiddleware
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:users,email,'. $user->id,
         ]);
 
 
@@ -96,5 +96,16 @@ class UserController extends Controller implements HasMiddleware
         $user->syncRoles($request->roles);
 
         return redirect(route('users.index', absolute: true))->with('success', 'User successfully updated!');
+    }
+
+
+    public function destroy(User $user) {
+        if($user->email === 'admin@app.com') {
+            abort(403);
+        }
+
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User successfully deleted!');
     }
 }

@@ -15,13 +15,10 @@ interface Props {
 }
 
 export default function Edit({ user, roles, hasRole }: Props) {
-  const { data, setData, put, processing, errors, reset } = useForm({
+  const { data, setData, put, processing, errors } = useForm({
     name: user.name || "",
-    email: user.email || "",
     roles: hasRole,
   });
-
-  console.log(hasRole);
 
   const handleChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
     let name = e.target.value;
@@ -40,11 +37,7 @@ export default function Edit({ user, roles, hasRole }: Props) {
   const submit: FormEventHandler = (e) => {
     e.preventDefault();
 
-    put(route("users.update", user), {
-      onSuccess: () => {
-        //
-      },
-    });
+    put(route("users.update", user));
   };
 
   return (
@@ -80,23 +73,6 @@ export default function Edit({ user, roles, hasRole }: Props) {
             <InputError message={errors.name} className="mt-2" />
           </div>
 
-          <div className="mt-4">
-            <InputLabel htmlFor="email" value="Email" />
-
-            <TextInput
-              id="email"
-              type="email"
-              name="email"
-              value={data.email}
-              className="mt-1 block w-full"
-              autoComplete="username"
-              onChange={(e) => setData("email", e.target.value)}
-              required
-            />
-
-            <InputError message={errors.email} className="mt-2" />
-          </div>
-
           <div className="flex flex-wrap gap-4 mt-4">
             {roles.map((role, index) => {
               return (
@@ -115,7 +91,7 @@ export default function Edit({ user, roles, hasRole }: Props) {
           </div>
 
           <div className="mt-4 flex items-center justify-start">
-            <PrimaryButton disabled={processing}>Create</PrimaryButton>
+            <PrimaryButton disabled={processing}>Save changes</PrimaryButton>
           </div>
         </form>
       </div>
