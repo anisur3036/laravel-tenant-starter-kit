@@ -63,16 +63,6 @@ class UserController extends Controller implements HasMiddleware
 
         $user->syncRoles($request->roles);
 
-
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -106,13 +96,5 @@ class UserController extends Controller implements HasMiddleware
         $user->syncRoles($request->roles);
 
         return redirect(route('users.index', absolute: true))->with('success', 'User successfully updated!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

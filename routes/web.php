@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/tenants', TenantController::class);
     Route::resource('/permissions', PermissionController::class);
     Route::resource('/roles', RoleController::class);
-    Route::resource('/users', UserController::class);
+    Route::resource('/users', UserController::class)->only('index', 'create', 'edit', 'update');
 });
 
 require __DIR__.'/auth.php';

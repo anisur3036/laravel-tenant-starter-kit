@@ -69,7 +69,6 @@ export default function Dashboard({ users }: Props) {
                   <Link href={route("users.edit", user.id)}>
                     <Pencil size={14} />
                   </Link>
-                  <DeleteUser user={user} />
                 </TableCell>
               </TableRow>
             ))}
@@ -77,22 +76,5 @@ export default function Dashboard({ users }: Props) {
         </Table>
       </div>
     </AuthenticatedLayout>
-  );
-}
-
-interface RoleProps {
-  user: { id: number; name: string; email: string };
-}
-
-function DeleteUser({ user }: RoleProps) {
-  const handleDelete = () => {
-    if (confirm("Are you sure you want to delete this user?")) {
-      router.delete(route("roles.destroy", user.id));
-    }
-  };
-  return (
-    <Button variant="link" onClick={handleDelete}>
-      <Trash2 size={14} className="text-red-500" />
-    </Button>
   );
 }
