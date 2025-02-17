@@ -26,7 +26,7 @@ class PermissionController extends Controller
 
         Permission::create($data);
 
-        // return redirect(route('permissions.index', absolute: true));
+        return redirect(route('permissions.index', absolute: true))->with('success', 'Permission created!');
 
 
     }

@@ -1,4 +1,4 @@
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -8,8 +8,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { PageProps } from "@/types";
+import { Head, Link, router, usePage } from "@inertiajs/react";
 import { Pencil, Trash2 } from "lucide-react";
+import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 interface Props {
   roles: {
@@ -23,6 +26,13 @@ interface Props {
 }
 
 export default function Dashboard({ roles }: Props) {
+  const { flash } = usePage<PageProps>().props;
+
+  useEffect(() => {
+    if (flash.success) {
+      toast(flash.success);
+    }
+  }, []);
   return (
     <AuthenticatedLayout
       header={
@@ -37,6 +47,7 @@ export default function Dashboard({ roles }: Props) {
       }
     >
       <Head title="Permission" />
+      <ToastContainer />
 
       <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
         <Table>
@@ -58,13 +69,7 @@ export default function Dashboard({ roles }: Props) {
                   <Link href={route("roles.edit", role.id)}>
                     <Pencil size={14} />
                   </Link>
-                  <Link
-                    method="delete"
-                    as="button"
-                    href={route("roles.destroy", role)}
-                  >
-                    <Trash2 size={14} className="text-red-500" />
-                  </Link>
+                  <DeleteRole role={role} />
                 </TableCell>
               </TableRow>
             ))}
@@ -72,5 +77,22 @@ export default function Dashboard({ roles }: Props) {
         </Table>
       </div>
     </AuthenticatedLayout>
+  );
+}
+
+interface RoleProps {
+  role: { id: number; name: string };
+}
+
+function DeleteRole({ role }: RoleProps) {
+  const handleDelete = () => {
+    if (confirm("Are you sure you want to delete this permission?")) {
+      router.delete(route("roles.destroy", role.id));
+    }
+  };
+  return (
+    <Button variant="link" onClick={handleDelete}>
+      <Trash2 size={14} className="text-red-500" />
+    </Button>
   );
 }

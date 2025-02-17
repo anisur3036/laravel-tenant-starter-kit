@@ -7,7 +7,6 @@ import { buttonVariants } from "@/components/ui/button";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
-import { ToastContainer, toast } from "react-toastify";
 
 interface Props {
   permissions: {
@@ -36,14 +35,11 @@ export default function Create({ permissions }: Props) {
     }
   };
 
-  const notify = () => toast("Role created!");
-
   const submit: FormEventHandler = (e) => {
     e.preventDefault();
 
     post(route("roles.store"), {
       onSuccess: () => {
-        notify();
         reset("name");
       },
     });
@@ -63,8 +59,6 @@ export default function Create({ permissions }: Props) {
       }
     >
       <Head title="Create role" />
-      <ToastContainer />
-
       <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
         <form onSubmit={submit} className="max-w-xl space-y-4">
           <div>

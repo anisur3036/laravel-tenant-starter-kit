@@ -1,4 +1,4 @@
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -8,8 +8,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { PageProps } from "@/types";
+import { Head, Link, router, usePage } from "@inertiajs/react";
 import { Pencil, Trash2 } from "lucide-react";
+import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 interface Props {
   permissions: {
@@ -21,7 +24,15 @@ interface Props {
   };
 }
 
-export default function Dashboard({ permissions }: Props) {
+export default function Index({ permissions }: Props) {
+  const { flash } = usePage<PageProps>().props;
+
+  useEffect(() => {
+    if (flash.success) {
+      toast(flash.success);
+    }
+  }, []);
+
   return (
     <AuthenticatedLayout
       header={
@@ -36,6 +47,7 @@ export default function Dashboard({ permissions }: Props) {
       }
     >
       <Head title="Permission" />
+      <ToastContainer />
 
       <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
         <Table>
@@ -55,13 +67,7 @@ export default function Dashboard({ permissions }: Props) {
                   <Link href={route("permissions.edit", permission.id)}>
                     <Pencil size={14} />
                   </Link>
-                  <Link
-                    method="delete"
-                    as="button"
-                    href={route("permissions.destroy", permission)}
-                  >
-                    <Trash2 size={14} className="text-red-500" />
-                  </Link>
+                  <DeletePermission permission={permission} />
                 </TableCell>
               </TableRow>
             ))}
@@ -69,5 +75,22 @@ export default function Dashboard({ permissions }: Props) {
         </Table>
       </div>
     </AuthenticatedLayout>
+  );
+}
+
+interface PermissionProps {
+  permission: { id: number; name: string };
+}
+
+function DeletePermission({ permission }: PermissionProps) {
+  const handleDelete = () => {
+    if (confirm("Are you sure you want to delete this permission?")) {
+      router.delete(route("permissions.destroy", permission.id));
+    }
+  };
+  return (
+    <Button variant="link" onClick={handleDelete}>
+      <Trash2 size={14} className="text-red-500" />
+    </Button>
   );
 }

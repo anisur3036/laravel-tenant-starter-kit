@@ -25,8 +25,8 @@ import {
   LogOut,
   CircleIcon,
   Users2,
+  ChevronDown,
 } from "lucide-react";
-import SubMenu from "@/components/SubMenu";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,6 +40,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import SubMenu from "@/components/SubMenu";
 import { Input } from "@/components/ui/input";
 import ApplicationLogo from "@/components/ApplicationLogo";
 
@@ -250,7 +251,10 @@ export default function Authenticated({
           <div className="ml-3 relative">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <span className="cursor-pointer">{user.name}</span>
+                <span className="flex items-center gap-2">
+                  <span className="cursor-pointer">{user.name}</span>
+                  <ChevronDown size={16} />
+                </span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
