@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\RolesEnum;
 use App\Http\Resources\RoleResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -18,27 +21,31 @@ class RoleController extends Controller
 
     public function create() {
         $permissions = Permission::orderBy('name')->get();
+        $roles = RolesEnum::cases();
 
-        return inertia('Roles/Create', ['permissions' => $permissions]);
+        return inertia('Roles/Create', ['permissions' => $permissions, 'roles' => $roles]);
     }
 
     public function store(Request $request) {
 
         $data = $request->validate([
-            'name' => 'required|min:3|unique:'.Role::class,
+            'name' => [Rule::enum(RolesEnum::class), 'required', 'min:3', 'unique:' . Role::class],
         ]);
 
-        // dd($request->permissions);
+        DB::transaction(function() use ($data, $request) {
 
-        $role = Role::create($data);
+            $role = Role::create($data);
 
-        if(!empty($request->permissions)) {
-            foreach($request->permissions as $name) {
-                $role->givePermissionTo($name);
+            if(!empty($request->permissions)) {
+                foreach($request->permissions as $name) {
+                    $role->givePermissionTo($name);
+                }
             }
-        }
 
-        return redirect(route('roles.index', absolute: true));
+            return $role;
+        });
+
+        return redirect(route('roles.index', absolute: true))->with('success', 'Role has created!');
     }
 
     public function edit(Role $role) {
@@ -54,16 +61,20 @@ class RoleController extends Controller
             'name' => 'required|min:3|unique:roles,name,'. $role->id
         ]);
 
-        $role->update($data);
+        $role = DB::transaction(function() use ($role, $data, $request) {
 
-        if(!empty($request->permissions)) {
-            $role->syncPermissions($request->permissions);
-        } else {
-            $role->syncPermissions([]);
-        }
+            $role->update($data);
 
+            if(!empty($request->permissions)) {
+                $role->syncPermissions($request->permissions);
+            } else {
+                $role->syncPermissions([]);
+            }
 
-        return redirect(route('roles.index', absolute: true));
+            return $role;
+        });
+
+        return redirect(route('roles.index', absolute: true))->with('success', 'Role successfully updated!');
     }
 
     public function destroy(Role $role) {

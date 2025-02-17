@@ -2,46 +2,35 @@ import Checkbox from "@/components/Checkbox";
 import InputError from "@/components/InputError";
 import InputLabel from "@/components/InputLabel";
 import PrimaryButton from "@/components/PrimaryButton";
+import TextInput from "@/components/TextInput";
 import { buttonVariants } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 
 interface Props {
-  permissions: {
-    id: number;
-    name: string;
-  }[];
-  roles: string[];
+  user: { id: number; name: string; email: string };
+  roles: { id: number; name: string }[];
+  hasRole: string[];
 }
 
-export default function Create({ permissions, roles }: Props) {
-  const { data, setData, post, processing, errors, reset } = useForm({
-    name: "",
-    permissions: [] as string[],
+export default function Edit({ user, roles, hasRole }: Props) {
+  const { data, setData, put, processing, errors, reset } = useForm({
+    name: user.name || "",
+    email: user.email || "",
+    roles: hasRole,
   });
 
-  console.log(roles);
-
-  const handleSelectValue = (value: string) => {
-    setData("name", value);
-  };
+  console.log(hasRole);
 
   const handleChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
     let name = e.target.value;
     if (e.target.checked) {
-      setData("permissions", [...data.permissions, name]);
+      setData("roles", [...data.roles, name]);
     } else {
       setData(
-        "permissions",
-        data.permissions.filter((item) => {
+        "roles",
+        data.roles.filter((item) => {
           return item !== name;
         }),
       );
@@ -51,9 +40,9 @@ export default function Create({ permissions, roles }: Props) {
   const submit: FormEventHandler = (e) => {
     e.preventDefault();
 
-    post(route("roles.store"), {
+    put(route("users.update", user), {
       onSuccess: () => {
-        reset("name");
+        //
       },
     });
   };
@@ -63,9 +52,9 @@ export default function Create({ permissions, roles }: Props) {
       header={
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            Create role
+            Create user
           </h2>
-          <Link className={buttonVariants()} href={route("roles.index")}>
+          <Link className={buttonVariants()} href={route("users.index")}>
             back
           </Link>
         </div>
@@ -74,34 +63,52 @@ export default function Create({ permissions, roles }: Props) {
       <Head title="Create role" />
       <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
         <form onSubmit={submit} className="max-w-xl space-y-4">
-          <div className="space-y-4">
+          <div>
             <InputLabel htmlFor="name" value="Name" />
-            <Select onValueChange={handleSelectValue}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select role" />
-              </SelectTrigger>
-              <SelectContent>
-                {roles.map((role, index) => (
-                  <SelectItem key={index} value={role}>
-                    {role}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+
+            <TextInput
+              id="name"
+              name="name"
+              value={data.name}
+              className="mt-1 block w-full"
+              autoComplete="name"
+              isFocused={true}
+              onChange={(e) => setData("name", e.target.value)}
+              required
+            />
 
             <InputError message={errors.name} className="mt-2" />
           </div>
-          <div className="flex flex-wrap gap-4">
-            {permissions.map((permission, index) => {
+
+          <div className="mt-4">
+            <InputLabel htmlFor="email" value="Email" />
+
+            <TextInput
+              id="email"
+              type="email"
+              name="email"
+              value={data.email}
+              className="mt-1 block w-full"
+              autoComplete="username"
+              onChange={(e) => setData("email", e.target.value)}
+              required
+            />
+
+            <InputError message={errors.email} className="mt-2" />
+          </div>
+
+          <div className="flex flex-wrap gap-4 mt-4">
+            {roles.map((role, index) => {
               return (
                 <label className="flex items-center" key={index}>
                   <Checkbox
-                    name="permissions[]"
-                    id={`permissions${permission.id}`}
-                    value={permission.name}
+                    checked={data.roles.includes(role.name)}
+                    name="roles[]"
+                    id={`roles${role.name}`}
+                    value={role.name}
                     onChange={handleChecked}
                   />
-                  <span className="ml-2 text-sm">{permission.name}</span>
+                  <span className="ml-2 text-sm">{role.name}</span>
                 </label>
               );
             })}
