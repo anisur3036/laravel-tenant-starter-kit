@@ -22,6 +22,26 @@ export type PageProps<
   ziggy: Config & { location: string };
 };
 
+export interface ILaravelPaginate<T extends object> {
+  current_page: number;
+  data: T[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: {
+    active: boolean;
+    label: string;
+    url: string | null;
+  }[];
+  next_page_url: string | null;
+  path: string;
+  per_page: number;
+  prev_page_url: string | null;
+  to: number;
+  total: number;
+}
+
 export interface iSubMenu {
   id: number;
   name: string;
@@ -33,4 +53,19 @@ export interface iMenu {
   title: string;
   icon: React.ReactNode;
   menus: iSubMenu[];
+}
+
+export interface iPaginatedData<T> {
+  data: T[];
+  meta: MetaData;
+}
+
+export interface MetaData {
+  links: LinkData[];
+}
+
+export interface LinkData {
+  url: string;
+  label: string;
+  active: boolen;
 }

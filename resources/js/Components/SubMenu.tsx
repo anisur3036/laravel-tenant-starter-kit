@@ -26,7 +26,7 @@ const SubMenu = ({ menuItem }: iMenuDataProps) => {
         onClick={() => setSubMenuOpen(!subMenuOpen)}
       >
         {menuItem.icon}
-        <p className="flex-1 capitalize">{menuItem.title}</p>
+        <p className="flex-1 text-base">{menuItem.title}</p>
         <ChevronRight
           size={20}
           className={` ${subMenuOpen && "rotate-90"} duration-200 `}
@@ -35,20 +35,22 @@ const SubMenu = ({ menuItem }: iMenuDataProps) => {
       <ul
         className={`overflow-hidden transition-all duration-300  flex flex-col pl-6 text-[0.8rem] font-normal ${subMenuOpen ? "max-h-96" : "max-h-0"}`}
       >
-        {menuItem.menus?.map((menu) => (
-          <li
-            key={menu.id}
-            className={`flex pl-2 py-1 rounded gap-1 items-center ${url.startsWith(menu.url) ? "bg-background" : ""}`}
-          >
-            {menu.icon}
-            <Link
-              href={menu.url}
-              className={`p-0.5 pl-2 text-base flex rounded-md gap-6 items-center md:cursor-pointer cursor-default duration-300 font-medium capitalize`}
+        <span className="border-l border-slate-400 dark:border-slate-600 pl-1">
+          {menuItem.menus?.map((menu) => (
+            <li
+              key={menu.id}
+              className={`flex pl-2 py-1 rounded gap-1 items-center ${url.startsWith(menu.url) ? "bg-background" : ""}`}
             >
-              {menu.name}
-            </Link>
-          </li>
-        ))}
+              {/*{menu.icon}*/}
+              <Link
+                href={menu.url}
+                className={`p-0.5 pl-2 text-sm flex rounded-md gap-6 items-center md:cursor-pointer cursor-default duration-300 font-medium capitalize`}
+              >
+                {menu.name}
+              </Link>
+            </li>
+          ))}
+        </span>
       </ul>
     </>
   );

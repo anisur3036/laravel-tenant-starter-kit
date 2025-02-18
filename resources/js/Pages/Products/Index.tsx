@@ -1,3 +1,4 @@
+import { PaginationComponent } from "@/components/Pagination";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Table,
@@ -28,6 +29,9 @@ interface Props {
       user: { id: number; name: string };
       created_at: string;
     }[];
+    meta: {
+      links: { url: string; label: string; active: boolean }[];
+    };
   };
 }
 
@@ -95,6 +99,9 @@ export default function Index({ products }: Props) {
             ))}
           </TableBody>
         </Table>
+        <div className=" mt-4 flex justify-end">
+          <PaginationComponent links={products.meta.links} />
+        </div>
       </div>
     </AuthenticatedLayout>
   );

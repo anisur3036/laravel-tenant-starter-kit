@@ -83,7 +83,7 @@
 
 @layer components {
     .link {
-        @apply p-2.5 flex rounded-md gap-3 items-center cursor-pointer duration-300 font-medium;
+        @apply py-1 px-1 flex rounded-md gap-3 items-center cursor-pointer duration-300 font-medium;
     }
     .sidebar {
         @apply w-64 fixed -left-[100%] sm:left-0 top-0 bg-sidebar-accent z-50 transition-[width];
@@ -112,13 +112,14 @@
         @apply block sm:hidden;
     }
 
-    .sidebar.active #sidebar-menu .sidebar-submenu {
+    /*.sidebar.active #sidebar-menu .sidebar-submenu {
         @apply block sm:hidden;
     }
 
     .sidebar.active:hover #sidebar-menu .sidebar-submenu a span {
         @apply sm:inline;
-    }
+    }*/
+
     .main-container {
         @apply ml-0 sm:ml-64 transition-[margin-left];
     }

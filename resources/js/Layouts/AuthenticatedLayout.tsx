@@ -26,6 +26,13 @@ import {
   CircleIcon,
   Users2,
   ChevronDown,
+  FileCheckIcon,
+  SwatchBook,
+  Book,
+  MoveRight,
+  Move,
+  BaggageClaim,
+  Haze,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -91,7 +98,7 @@ export default function Authenticated({
   const subMenusList = [
     {
       title: "Tenants",
-      icon: <ChevronsRight />,
+      icon: <BaggageClaim size={22} className="shrink-0" />,
       menus: [
         {
           id: 1,
@@ -104,7 +111,7 @@ export default function Authenticated({
     },
     {
       title: "Admin areas",
-      icon: <ChevronsRight />,
+      icon: <Haze size={22} className="shrink-0" />,
       menus: [
         {
           id: 1,
@@ -126,6 +133,19 @@ export default function Authenticated({
           url: "/permissions",
           // menuRoute: "users.index",
           icon: <Users2 size={14} className="text-foreground" />,
+        },
+      ],
+    },
+    {
+      title: "Inventory",
+      icon: <SwatchBook size={22} className="shrink-0" />,
+      menus: [
+        {
+          id: 1,
+          name: "Products",
+          url: "/products",
+          // menuRoute: "users.index",
+          icon: <Book size={14} className="text-foreground" />,
         },
       ],
     },
@@ -182,13 +202,13 @@ export default function Authenticated({
             <ul className="whitespace-pre px-2.5 text[0.9rem] py-5 flex flex-col gap-1 font-medium">
               <li>
                 <Link href="/dashboard" className={"link text-foreground"}>
-                  <Home className="size-6 text-foregorund min-w-max" />
+                  <Home size={20} className="text-foregorund min-w-max" />
                   Dashboard
                 </Link>
               </li>
               <li>
                 <Link href="/" className={"link text-foreground"}>
-                  <User2 className="size-6 text-foreground min-w-max" />
+                  <User2 size={22} className="stext-foreground min-w-max" />
                   Authentication
                 </Link>
               </li>
@@ -198,14 +218,14 @@ export default function Authenticated({
                   Admin
                 </small>
                 {subMenusList?.map((menu) => (
-                  <div key={menu.title} className="flex flex-col gap-1">
+                  <ul key={menu.title} className="flex flex-col gap-1">
                     <SubMenu menuItem={menu} />
-                  </div>
+                  </ul>
                 ))}
               </div>
               <li>
                 <Link href="/" className={"link text-foreground"}>
-                  <Database className="size-6 text-foreground min-w-max" />
+                  <Database size={22} className="text-foreground min-w-max" />
                   Storage
                 </Link>
               </li>
