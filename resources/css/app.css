@@ -140,27 +140,29 @@
         @apply transform rotate-90;
     }
 
-    #sidebar-menu::-webkit-scrollbar-track {
+    #sidebar-menu::-webkit-scrollbar-track #cart-info::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         background-color: #272e38;
     }
 
-    #sidebar-menu::-webkit-scrollbar {
+    #sidebar-menu::-webkit-scrollbar,
+    #cart-info::-webkit-scrollbar {
         width: 8px;
         background-color: #424c5c;
     }
 
-    #sidebar-menu::-webkit-scrollbar-thumb {
+    #sidebar-menu::-webkit-scrollbar-thumb #cart-info::-webkit-scrollbar-thumb {
         background-color: #424c5c;
         border: 2px solid #424c5c;
     }
 
-    #sidebar-menu::scrollbar-track {
+    #sidebar-menu::scrollbar-track #cart-info::scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         background-color: #424c5c;
     }
 
-    #sidebar-menu {
+    #sidebar-menu,
+    #cart-info {
         scrollbar-width: thin;
         scrollbar-color: #424c5c transparent;
     }
