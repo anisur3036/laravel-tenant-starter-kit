@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/permissions', PermissionController::class);
     Route::resource('/roles', RoleController::class);
     Route::resource('/users', UserController::class)->only('index', 'create', 'store', 'edit', 'update', 'destroy');
+    Route::resource('/categories', CategoryController::class);
     Route::resource('/products', ProductController::class);
     Route::get('/carts', [CartController::class, 'index']);
 });

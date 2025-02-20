@@ -149,26 +149,11 @@ export default function Index({ products }: Props) {
   };
 
   return (
-    <AuthenticatedLayout
-      header={
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            Products
-          </h2>
-          <Link
-            prefetch={true}
-            className={buttonVariants()}
-            href={route("products.create")}
-          >
-            Create product
-          </Link>
-        </div>
-      }
-    >
+    <AuthenticatedLayout>
       <Head title="Products" />
       <ToastContainer />
 
-      <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
+      <div className="mt-20 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
         <div className="grid grid-cols-8 gap-2">
           <div className="col-span-5">Product info</div>
           <div className="col-span-3">Cart Info</div>
@@ -180,7 +165,7 @@ export default function Index({ products }: Props) {
                 <div
                   key={product.id}
                   onClick={() => handleCartAdd(product.id)}
-                  className="w-40 overflow-hidden bg-white border cursor-pointer border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+                  className="w-40 overflow-hidden bg-slate-50 border cursor-pointer border-gray-300 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
                 >
                   <div className="w-40 h-32 overflow-hidden">
                     <img
@@ -216,14 +201,14 @@ export default function Index({ products }: Props) {
             </div>
           </div>
 
-          <div className="relative col-span-3 flex flex-col gap-4">
+          <div className="col-span-3 flex flex-col gap-4">
             <div
               id="cart-info"
-              className="absolute overflow-y-auto min-h-64 max-h-32 border rounded-xl border-slate-700 p-4"
+              className="overflow-y-auto bg-white dark:bg-slate-800 h-[370px] border rounded-xl border-slate-300  dark:border-slate-700 p-4"
             >
               {carts.map((product, index) => (
                 <div
-                  className="h-28 grid grid-cols-5 items-center gap-4 border-b border-slate-700 pt-2"
+                  className="h-28 grid grid-cols-5 items-center gap-4 border-b borde-slate-300 dark:border-slate-700 pt-2"
                   key={product.id}
                 >
                   <div className="w-16 p-1 col-span-1">
@@ -234,12 +219,12 @@ export default function Index({ products }: Props) {
                     />
                   </div>
                   <div className="col-span-3 flex flex-col gap-2">
-                    <div className="flex items-center gap-8">
-                      <h5>{product.name}</h5>
-                      <span className="font-semibold">
-                        {new Intl.NumberFormat("de-DE", {
+                    <div className="flex items-center gap-8 text-sm font-semibold">
+                      <h5 className="flex-1">{product.name}</h5>
+                      <span className="">
+                        {new Intl.NumberFormat("en-EN", {
                           style: "currency",
-                          currency: "BDT",
+                          currency: "USD",
                           maximumFractionDigits: 0,
                         }).format(product.selling_price)}
                       </span>
@@ -247,9 +232,9 @@ export default function Index({ products }: Props) {
                     <div className="flex items-center">
                       <button
                         onClick={() => handleDecrementQty(product.id)}
-                        className="bg-slate-600 py-1.5 px-2 border border-slate-700 rounded-l"
+                        className="bg-slate-800 dark:bg-slate-600 py-1.5 px-2 border border-slate-800 dark:border-slate-700 rounded-l"
                       >
-                        <MinusIcon size={20} className="text-red-500" />
+                        <MinusIcon size={20} className="text-slate-50" />
                       </button>
                       <div className="w-24">
                         <input
@@ -263,9 +248,9 @@ export default function Index({ products }: Props) {
                       </div>
                       <button
                         onClick={() => handleIncrementQty(product.id)}
-                        className="bg-slate-600 py-1.5 px-2 border border-slate-700 rounded-r"
+                        className="bg-slate-800 dark:bg-slate-600 py-1.5 px-2 border border-slate-800 dark:border-slate-700 rounded-r"
                       >
-                        <PlusIcon size={20} className="text-green-500" />
+                        <PlusIcon size={20} className="text-slate-50" />
                       </button>
                     </div>
                     <div className="flex items-center gap-4">
@@ -281,23 +266,23 @@ export default function Index({ products }: Props) {
                       </button>
                     </div>
                   </div>
-                  <div className="py-8">
-                    {new Intl.NumberFormat("de-DE", {
+                  <div className="py-8 font-semibold">
+                    {new Intl.NumberFormat("en-EN", {
                       style: "currency",
-                      currency: "BDT",
+                      currency: "USD",
                       maximumFractionDigits: 0,
                     }).format(product.qty * product.selling_price)}
                   </div>
                 </div>
               ))}
             </div>
-            <div className="w-full rounded-xl bg-accent absolute bottom-0 px-4 py-2 space-y-4">
+            <div className="rounded-xl bg-accent px-4 py-2 space-y-2">
               <div className="grid grid-cols-4 border-b border-slate-700 py-1">
                 <p className="col-span-3">Subtotal</p>
                 <p className="col-span-1 text-right">
-                  {new Intl.NumberFormat("de-DE", {
+                  {new Intl.NumberFormat("en-EN", {
                     style: "currency",
-                    currency: "BDT",
+                    currency: "USD",
                     maximumFractionDigits: 0,
                   }).format(calculateSubtotal())}
                 </p>
@@ -313,22 +298,22 @@ export default function Index({ products }: Props) {
               <div className="grid grid-cols-4 py-1">
                 <p className="col-span-3 font-semibold">Total</p>
                 <p className="col-span-1 text-right font-semibold">
-                  {new Intl.NumberFormat("de-DE", {
+                  {new Intl.NumberFormat("en-EN", {
                     style: "currency",
-                    currency: "BDT",
+                    currency: "USD",
                     maximumFractionDigits: 0,
                   }).format(calculateSubtotal())}
                 </p>
               </div>
               <div className="grid grid-cols-4 gap-2">
-                <PrimaryButton>Cash</PrimaryButton>
-                <PrimaryButton>Bkash</PrimaryButton>
-                <PrimaryButton>Bank</PrimaryButton>
-                <PrimaryButton>Nagad</PrimaryButton>
-                <PrimaryButton>Cash</PrimaryButton>
-                <PrimaryButton>Bkash</PrimaryButton>
-                <PrimaryButton>Bank</PrimaryButton>
-                <PrimaryButton>Nagad</PrimaryButton>
+                <Button>Cash</Button>
+                <Button>Bkash</Button>
+                <Button>Bank</Button>
+                <Button>Nagad</Button>
+                <Button>Cash</Button>
+                <Button>Bkash</Button>
+                <Button>Bank</Button>
+                <Button>Nagad</Button>
               </div>
             </div>
           </div>
