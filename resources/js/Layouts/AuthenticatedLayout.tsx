@@ -147,6 +147,13 @@ export default function Authenticated({
           // menuRoute: "users.index",
           icon: <Book size={14} className="text-foreground" />,
         },
+        {
+          id: 2,
+          name: "Categories",
+          url: "/categories",
+          // menuRoute: "users.index",
+          icon: <Book size={14} className="text-foreground" />,
+        },
       ],
     },
   ];

@@ -83,12 +83,12 @@ export default function Create() {
       header={
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            Create product
+            Create category
           </h2>
           <Link
             prefetch={true}
             className={buttonVariants()}
-            href={route("products.index")}
+            href={route("categories.index")}
           >
             back
           </Link>
@@ -137,10 +137,27 @@ export default function Create() {
                       required
                     />
 
-                    <InputError message={errors.name} className="mt-2" />
+                    <InputError message={errors.slug} className="mt-2" />
                   </div>
 
-                  <div className="mb-4 md:mb-0">
+                  <div className="mb-4">
+                    <InputLabel htmlFor="description" value="Description" />
+
+                    <Input
+                      id="description"
+                      name="description"
+                      value={data.description}
+                      className="mt-1 block w-full"
+                      onChange={(e) => setData("description", e.target.value)}
+                      required
+                    />
+
+                    <InputError message={errors.description} className="mt-2" />
+                  </div>
+                </div>
+
+                <div className="col-span-1">
+                  <div className="mb-4">
                     <InputLabel htmlFor="serial" value="Serial" />
 
                     <Input
@@ -155,11 +172,8 @@ export default function Create() {
                       required
                     />
 
-                    <InputError message={errors.name} className="mt-2" />
+                    <InputError message={errors.serial} className="mt-2" />
                   </div>
-                </div>
-
-                <div className="col-span-1">
                   {preview && (
                     <img
                       className="text-center"
@@ -168,24 +182,24 @@ export default function Create() {
                       style={{ width: "150px", height: "150px" }}
                     />
                   )}
-
                   <div className="mb-4">
                     <InputLabel htmlFor="photo" value="Photo" />
 
                     <Input
+                      id="photo"
                       type="file"
                       accept="image/*"
-                      className="w-full px-4 py-2"
+                      className="mt-1 w-full px-4 py-2"
                       name="photo"
                       onChange={handleImageChange}
                     />
-                    <InputError message={errors.name} className="mt-2" />
+                    <InputError message={errors.photo} className="mt-2" />
                   </div>
 
                   <div className="mb-4 md:mb-0">
                     <InputLabel htmlFor="status" value="Status" />
                     <Select onValueChange={handleSelectValue}>
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger id="status" className="mt-1 w-full">
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                       <SelectContent>
@@ -196,7 +210,7 @@ export default function Create() {
                         </SelectGroup>
                       </SelectContent>
                     </Select>
-                    <InputError message={errors.name} className="mt-2" />
+                    <InputError message={errors.status} className="mt-2" />
                   </div>
                 </div>
               </div>
