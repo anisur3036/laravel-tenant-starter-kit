@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryParentResource;
 use App\Http\Resources\CategoryResource;
 use App\Manager\ImageUploadManager;
 use App\Models\Category;
@@ -31,7 +32,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return inertia('Categories/Create');
+            $parent_categoris = Category::where('parent_id', null)->get();
+
+        return inertia('Categories/Create',[
+            'parent_categoris' => CategoryParentResource::collection($parent_categoris),
+        ]);
     }
 
     /**
@@ -45,6 +50,7 @@ class CategoryController extends Controller
             'description' => 'nullable|string',
             'serial' => 'required|integer',
             'status' => 'nullable',
+            'parent_id' => 'nullable|integer'
         ]);
 
 
@@ -71,6 +77,10 @@ class CategoryController extends Controller
             }
         } catch(Exception $e) {
             $e->getMessage();
+        }
+
+        if($data['parent_id'] === 0) {
+            $data['parent_id'] = null;
         }
 
         Category::create($data);

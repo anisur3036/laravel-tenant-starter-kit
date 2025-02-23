@@ -20,6 +20,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(1);
             $table->string('photo')->nullable();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('parent_id')->nullable()->constrained('categories');
             $table->timestamps();
         });
     }

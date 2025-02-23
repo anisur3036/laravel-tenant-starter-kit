@@ -23,15 +23,18 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { ChangeEvent, FormEventHandler, useState } from "react";
 
-export default function Create() {
+export default function Create({ parent_categoris }) {
   const { data, setData, post, processing, progress, errors, reset } = useForm({
     name: "",
     slug: "",
     description: "",
     serial: 0,
     photo: null,
-    status: "",
+    status: 0,
+    parent_id: 0,
   });
+
+  console.log(parent_categoris);
 
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -51,8 +54,12 @@ export default function Create() {
     }
   };
 
+  const handleCategorySelectedValue = (value: string) => {
+    setData("parent_id", Number(value));
+  };
+
   const handleSelectValue = (value: string) => {
-    setData("status", value);
+    setData("status", Number(value));
   };
 
   const handleNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,6 +116,26 @@ export default function Create() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="col-span-1">
+                  <div className="mb-4">
+                    <InputLabel htmlFor="parent_id" value="Parent category" />
+                    <Select onValueChange={handleCategorySelectedValue}>
+                      <SelectTrigger id="parent_id" className="mt-1 w-full">
+                        <SelectValue placeholder="Select parent category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Parent category</SelectLabel>
+                          {parent_categoris.data.map((item, index) => (
+                            <SelectItem value={String(item.id)} key={index}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <InputError message={errors.parent_id} className="mt-2" />
+                  </div>
+
                   <div className="mb-4">
                     <InputLabel htmlFor="name" value="Name" />
 
