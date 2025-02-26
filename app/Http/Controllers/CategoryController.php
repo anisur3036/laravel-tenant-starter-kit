@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CategoryParentResource;
-use App\Http\Resources\CategoryResource;
-use App\Manager\ImageUploadManager;
-use App\Models\Category;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Manager\ImageUploadManager;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\CategoryParentResource;
 
 
 class CategoryController extends Controller
@@ -45,12 +45,12 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string',
-            'slug' => 'required|string|unique:categories,slug',
-            'description' => 'nullable|string',
-            'serial' => 'required|integer',
-            'status' => 'nullable',
-            'parent_id' => 'nullable|integer'
+            'name'          => 'required|string',
+            'slug'          => 'required|string|unique:categories,slug',
+            'description'   => 'nullable|string',
+            'serial'        => 'required|integer',
+            'status'        => 'nullable',
+            'parent_id'     => 'nullable|integer'
         ]);
 
 
@@ -58,25 +58,22 @@ class CategoryController extends Controller
         $data['user_id'] = Auth::id();
         $image = $request->file('photo');
 
-        try {
-
-            if($image) {
+        if($image) {
+            try {
                 $imageName = Str::slug($data['slug']) . '.webp';
-                $image->move('images/uploads', $imageName);
-
-                $readPath = 'images/uploads/';
                 $categoryThumbImage = 'images/uploads/category_thumb/';
                 $categoryImage = 'images/uploads/category/';
 
-                ImageUploadManager::uploadImage($imageName, $readPath, 150, 150, $categoryThumbImage);
-                ImageUploadManager::uploadImage($imageName, $readPath, 800, 800, $categoryImage);
+                ImageUploadManager::uploadImage($imageName, $image, 150, 150, $categoryThumbImage);
+                ImageUploadManager::uploadImage($imageName, $image, 800, 800, $categoryImage);
 
-                ImageUploadManager::deleteImage($readPath, $imageName);
+                // ImageUploadManager::deleteImage($readPath, $imageName);
 
                 $data['photo'] = $imageName;
+
+            } catch(Exception $e) {
+                $e->getMessage();
             }
-        } catch(Exception $e) {
-            $e->getMessage();
         }
 
         if($data['parent_id'] === 0) {

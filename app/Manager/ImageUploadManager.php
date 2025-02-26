@@ -8,13 +8,13 @@ use Intervention\Image\Drivers\Gd\Driver;
 class ImageUploadManager
 {
 
-    public static function uploadImage(string $name, string $readPath, int $width, int $height, string $outputPath)
+    public static function uploadImage(string $name, string $readImage, int $width, int $height, string $outputPath)
     {
-            $manager = new ImageManager(new Driver());
+        $manager = new ImageManager(new Driver());
 
-            $image = $manager->read($readPath . $name);
-            $image->resize($width, $height);
-            $image->save($outputPath . $name);
+        $image = $manager->read($readImage);
+        $image->resize($width, $height);
+        $image->save($outputPath . $name);
     }
 
 
