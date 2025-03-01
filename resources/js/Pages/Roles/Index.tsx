@@ -53,7 +53,7 @@ export default function Index({ roles }: Props) {
       <Head title="Roles" />
       <ToastContainer />
 
-      <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
+      <div className="mt-8 mb-6 mx-2  rounded-md p-4">
         <Table>
           <TableHeader>
             <TableRow>

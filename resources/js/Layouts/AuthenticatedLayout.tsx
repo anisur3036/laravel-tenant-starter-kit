@@ -168,7 +168,11 @@ export default function Authenticated({
       >
         <div
           id="brand"
-          className="fixed sm:left-0 h-14 top-0 w-64 py-4 pr-0 pl-4 text-foreground border-b border-slate-900/10 dark:border-slate-300/10"
+          className={
+            isSidebarActive
+              ? "fixed sm:left-0 h-14 top-0 w-64 sm:w-[60px] py-4 pr-0 pl-4 text-foreground border-b border-slate-900/10 dark:border-slate-300/10"
+              : "fixed h-14 top-0 w-64 py-4 pr-0 pl-4 text-foreground border-b border-slate-900/10 dark:border-slate-300/10"
+          }
         >
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center font-bold">
@@ -244,12 +248,7 @@ export default function Authenticated({
         id="main-container"
         className={isSidebarActive ? "main-container active" : "main-container"}
       >
-        <header
-          className="flex items-center justify-between fixed left-0 h-14
-            border-b border-border/40
-            text-foreground sm:left-64 bg-sidebar-accent w-full
-            sm:w-[calc(100%-256px)] top-0 z-50 p-2 shadow"
-        >
+        <header className="top-header">
           <div className="flex items-center">
             <button
               onClick={() =>
@@ -277,7 +276,7 @@ export default function Authenticated({
           <div className="relative flex items-center sm:w-[400px]">
             <Search className="size-4 absolute left-[8px] text-gray-400 dark:text-slate-500" />
             <Input
-              className="pl-8 w-full py-1 rounded-full border-slate-300 dark:border-sky-400/60 dark:text-foreground"
+              className="pl-8 w-full py-1 rounded-full border-slate-300 dark:border-slate-600 dark:text-foreground"
               type="text"
               name="search"
               placeholder="Search..."
@@ -393,7 +392,7 @@ export default function Authenticated({
           </div>
         </header>
         {header && (
-          <header className="pt-12 shadow bg-sidebar-accent">
+          <header className="pt-12 shadow-sm bg-sidebar-accent">
             <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
               {header}
             </div>

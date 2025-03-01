@@ -58,7 +58,7 @@ export default function Edit({ user, roles, hasRole }: Props) {
       }
     >
       <Head title="Update user" />
-      <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
+      <div className="mt-8 mb-6 mx-2  rounded-md p-4">
         <form onSubmit={submit} className="max-w-xl space-y-4">
           <div>
             <InputLabel htmlFor="name" value="Name" />

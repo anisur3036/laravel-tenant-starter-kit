@@ -355,7 +355,7 @@ export default function TenantAuthenticated({
           </div>
         </header>
         {header && (
-          <header className="pt-12 shadow bg-sidebar-accent">
+          <header className="pt-12 shadow-sm bg-sidebar-accent">
             <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
               {header}
             </div>

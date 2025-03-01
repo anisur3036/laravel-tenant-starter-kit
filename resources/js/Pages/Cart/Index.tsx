@@ -153,7 +153,7 @@ export default function Index({ products }: Props) {
       <Head title="Products" />
       <ToastContainer />
 
-      <div className="mt-20 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
+      <div className="mt-20 mb-6 mx-2  rounded-md p-4">
         <div className="grid grid-cols-8 gap-2">
           <div className="col-span-5">Product info</div>
           <div className="col-span-3">Cart Info</div>
@@ -165,7 +165,7 @@ export default function Index({ products }: Props) {
                 <div
                   key={product.id}
                   onClick={() => handleCartAdd(product.id)}
-                  className="w-40 overflow-hidden bg-slate-50 border cursor-pointer border-gray-300 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+                  className="w-40 overflow-hidden bg-slate-50 border cursor-pointer border-gray-300 rounded-lg shadow-xs dark:bg-gray-800 dark:border-gray-700"
                 >
                   <div className="w-40 h-32 overflow-hidden">
                     <img

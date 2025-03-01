@@ -103,7 +103,7 @@ export default function Create({ parent_categoris }) {
       }
     >
       <Head title="Create user" />
-      <div className="mt-8 mb-6 mx-2 bg-gray-50 dark:bg-gray-950 rounded-md p-4">
+      <div className="mt-8 mb-6 mx-2 rounded-md p-4">
         <form onSubmit={submit}>
           <Card className="w-full">
             <CardHeader>
